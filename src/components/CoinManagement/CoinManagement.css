@@ -1,0 +1,6 @@
+.selected{
+  background-color: var(--royal-purple);
+}
+.coins{
+  cursor: pointer;
+}

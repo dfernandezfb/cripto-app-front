@@ -23,7 +23,11 @@ const useForm = (initialValues, submit, validation) => {
   }
   const handleSubmit = (e)=>{
     e.preventDefault();
-    setErrors(validation(values));
+    if(validation){
+      setErrors(validation(values));
+    }else{
+      setErrors({});
+    }
     setSubmitting(true);
   }
 

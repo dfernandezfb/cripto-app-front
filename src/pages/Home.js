@@ -1,9 +1,13 @@
 import { useContext } from "react";
+import InternHeader from "../components/InternHeader/InternHeader";
 import { UserContext } from "../context/UserContext";
 
 const Home = () => {
-  const {logout} = useContext(UserContext)
-  return ( <button onClick={logout}>cerrar sesion</button> );
+  return ( 
+    <>
+      <InternHeader/>
+    </>
+   );
 }
  
 export default Home;

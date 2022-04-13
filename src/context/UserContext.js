@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import axiosClient from "../config/axiosClient";
+import authToken from "../helpers/authToken";
 
 export const UserContext = createContext();
 
@@ -25,11 +26,7 @@ const UserProvider = ({children})=>{
 
   const getAuth = async()=>{
     const token = localStorage.getItem('token');
-    if(token){
-      axiosClient.defaults.headers.common['x-auth-token'] = token;
-    }else{
-      delete axiosClient.defaults.headers.common['x-auth-token']
-    }
+    authToken(token)
     try {
       const response = await axiosClient.get('/users/auth');
       setAuth(true);
@@ -44,6 +41,7 @@ const UserProvider = ({children})=>{
       }
     }
   }
+  
   const logout = ()=>{
     setAuth(false);
     setToken(null);
