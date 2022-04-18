@@ -3,15 +3,20 @@ import { Container, Table, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axiosClient from "../../config/axiosClient";
 import AddModal from "../AddModal/AddModal";
+import EditModal from "../EditModal/EditModal";
 import "./CoinManagement.css"
 
 const CoinManagement = () => {
   const [coins, setCoins] = useState([]);
   const [show, setShow] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [selected, setSelected] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
+
   const getCoins = async () => {
     try {
       const response = await axiosClient.get("/coins");
@@ -36,7 +41,8 @@ const CoinManagement = () => {
       <Button variant="success" onClick={handleShow} className='m-3'>
         Agregar coin
       </Button>
-      <Button variant="danger" onClick={deleteCoin}>Borrar coin</Button>
+      <Button variant="warning" onClick={handleShowEdit} className='m-3'>Editar coin</Button>
+      <Button variant="danger" onClick={deleteCoin} className='m-3'>Borrar coin</Button>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -65,6 +71,7 @@ const CoinManagement = () => {
         </tbody>
       </Table>
       <AddModal show={show} handleClose={handleClose} setCoins={setCoins} coins={coins}/>
+      <EditModal show={showEdit} handleClose={handleCloseEdit} selected={selected} getCoins={getCoins}/>
     </Container>
   );
 };
